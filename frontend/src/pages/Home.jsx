@@ -2,25 +2,29 @@ import { useNavigate } from "react-router-dom";
 import EventForm from "../components/EventForm";
 
 const Home = () => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center mb-6">Event Management Platform</h1>
-      
-      {/* Event Creation Form */}
-      <EventForm />
+	return (
+		<div className="min-h-screen flex flex-col items-center justify-center bg-yellow-50 p-6">
+			<h1 className="text-4xl font-extrabold text-zinc-900 text-center mb-8 relative">
+				Event Management Platform
+				<span className="block w-20 h-1 bg-green-500 mx-auto mt-2 rounded"></span>
+			</h1>
 
-      {/* Button to navigate to Event List */}
-      <div className="flex justify-center mt-6">
-        <button 
-          onClick={() => navigate("/events")} 
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-          View Events
-        </button>
-      </div>
-    </div>
-  );
+			<div className="w-full max-w-lg">
+				<EventForm />
+			</div>
+
+			<div className="mt-8">
+				<button
+					onClick={() => navigate("/events")}
+					className="bg-gradient-to-r from-green-400 to-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform transition-all hover:-translate-y-1"
+				>
+					View Events
+				</button>
+			</div>
+		</div>
+	);
 };
 
 export default Home;

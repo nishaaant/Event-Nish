@@ -12,40 +12,40 @@ const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
+	cors: {
+		origin: "*",
+		methods: ["GET", "POST"],
+	},
 });
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
 
-// MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+	.connect(process.env.MONGO_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => console.log("MongoDB Connected"))
+	.catch((err) => console.log(err));
 
 io.on("connection", (socket) => {
-  console.log("New client connected");
+	console.log("New client connected");
 
-  socket.on("joinEvent", (eventId) => {
-    socket.join(eventId);
-  });
+	socket.on("joinEvent", (eventId) => {
+		socket.join(eventId);
+	});
 
-  socket.on("updateAttendees", (eventId) => {
-    io.to(eventId).emit("refreshAttendees");
-  });
+	socket.on("updateAttendees", (eventId) => {
+		io.to(eventId).emit("refreshAttendees");
+	});
 
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
+	socket.on("disconnect", () => {
+		console.log("Client disconnected");
+	});
 });
 
 const PORT = process.env.PORT || 5000;
