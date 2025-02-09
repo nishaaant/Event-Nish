@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:1608/api" || "https://event-nish.vercel.app/api";
+const API_URL ="https://event-nish.vercel.app/api";
 
 export const register = (userData) =>
 	axios.post(`${API_URL}/auth/register`, userData);
